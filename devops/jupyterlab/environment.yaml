@@ -1,0 +1,27 @@
+name: spark
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - pip
+  - pyspark=3.2.1  
+  - rdkit
+  - openbabel  
+  - numpy=1.21.*  
+  - pandas
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - jupyterlab
+  - ipywidgets
+  - ipython-sql
+  - psycopg2  
+  - sqlalchemy
+  - faiss-cpu 
+  - dask=2021.3.*  
+  - scipy  
+  - cupy
+  - pip
+  - pip:
+      - ogb

@@ -1,0 +1,48 @@
+services:
+  jupyterlab:
+    build:
+      context: ./jupyterlab
+      dockerfile: Dockerfile
+    image: ${IMAGE_NAME}
+    container_name: ${CONTAINER_NAME}
+    ports:
+      - "${HOST_PORT}:7777"
+    volumes:
+      - "./../main/:/home"
+    labels:
+      - "description=JupyterLab for Apache_Spark"
+      - "port=7777"
+    links:
+      - db
+
+  db:
+    build:
+      context: ./postgresql
+      dockerfile: Dockerfile
+    image: ${PG_IMAGE_NAME}
+    container_name: ${PG_CONTAINER_NAME}
+    environment:
+      POSTGRES_DB: fingerprint_db
+      POSTGRES_USER: kailash
+      POSTGRES_PASSWORD: enamine
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./../pgdata:/var/lib/postgresql/data"  
+    labels:
+      - "description=PostgreSQL Database"
+      - "port=7777"
+
+  streamlit:
+    build:
+      context: ./streamlit
+      dockerfile: Dockerfile
+    image: ${SL_IMAGE_NAME}
+    container_name: ${SL_CONTAINER_NAME}
+    ports:
+      - "${SL_PORT}:8501"
+    volumes:
+      - "./../main/:/home"
+    labels:
+      - "description=Streamlit App"
+      - "port=8501"
